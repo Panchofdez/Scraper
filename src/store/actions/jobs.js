@@ -1,19 +1,21 @@
 import { api } from "../../services/api";
 
-const loadJobs = (jobs) => {
+const loadJobs = (data) => {
   return {
     type: "LOAD_JOBS",
-    payload: jobs,
+    jobs: data.jobs,
+    count: data.counter,
   };
 };
 
 export const fetchJobs = (data) => {
   return async (dispatch) => {
     try {
-      const response = await api.get("/scrape", data);
+      const response = await api.post("/scrape", data);
       dispatch(loadJobs(response.data));
     } catch (err) {
       console.log(err);
+      throw Error(err);
     }
   };
 };
