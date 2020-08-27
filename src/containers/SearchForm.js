@@ -10,7 +10,7 @@ import {
   Modal,
 } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { fetchJobs } from "../store/actions/jobs";
+import { scrapeJobs } from "../store/actions/jobs";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -67,7 +67,7 @@ const SearchForm = () => {
       console.log(data);
       try {
         setVisible(true);
-        await dispatch(fetchJobs(data));
+        await dispatch(scrapeJobs(data));
         history.push("/jobs");
       } catch (err) {
         console.log(err);
