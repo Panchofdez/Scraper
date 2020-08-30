@@ -13,31 +13,12 @@ import { useHistory } from "react-router-dom";
 import { scrapeJobs } from "../store/actions/jobs";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import LoadingModal from "../components/LoadingModal";
 
 const SearchForm = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const [error, setError] = useState(false);
-  const [addTech, setAddTech] = useState("");
-  const [technologies, setTechnologies] = useState([
-    "HTML",
-    "CSS",
-    "Python",
-    "Javascript",
-    "Java",
-    "C++",
-    "C#",
-    "C",
-    "Go",
-    "PHP",
-    "React",
-    "Angular",
-    "Vue",
-    "AWS",
-    "SQL",
-    "Docker",
-  ]);
   const formik = useFormik({
     initialValues: {
       site: "Indeed",
@@ -56,21 +37,18 @@ const SearchForm = () => {
         .max(2, "Must be 2 characters in length"),
     }),
     onSubmit: async (values) => {
-      if (technologies.length === 0) {
-        setError(true);
-        return;
-      }
-      const data = {
-        ...values,
-        technologies,
-      };
-      console.log(data);
+      console.log(values);
       try {
         setVisible(true);
-        await dispatch(scrapeJobs(data));
-        history.push("/jobs");
+        const new_query = await dispatch(scrapeJobs(values));
+
+        history.push({
+          pathname: "/jobs",
+          state: { query: { ...values, ...new_query } },
+        });
       } catch (err) {
         console.log(err);
+        setVisible(false);
         return;
       }
     },
@@ -85,7 +63,7 @@ const SearchForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.site}
-          isInvalid={!!formik.errors.site}
+          isInvalid={formik.touched && !!formik.errors.site}
         >
           <option>Indeed</option>
           <option>GlassDoor</option>
@@ -103,7 +81,7 @@ const SearchForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.type}
-          isInvalid={!!formik.errors.type}
+          isInvalid={formik.touched && formik.errors.type}
         />
         <Form.Control.Feedback type="invalid">
           {formik.errors.type}
@@ -119,7 +97,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.country}
-            isInvalid={!!formik.errors.country}
+            isInvalid={formik.touched && formik.errors.country}
           >
             <option>Canada</option>
             <option>United States</option>
@@ -135,7 +113,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.city}
-            isInvalid={!!formik.errors.city}
+            isInvalid={formik.touched && formik.errors.city}
           />
           <Form.Control.Feedback type="invalid">
             {formik.errors.city}
@@ -149,7 +127,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.province}
-            isInvalid={!!formik.errors.province}
+            isInvalid={formik.touched && formik.errors.province}
             placeholder="ex. ON, BC"
           />
           <Form.Control.Feedback type="invalid">
@@ -157,62 +135,6 @@ const SearchForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
-
-      <Form.Label>Technologies/Skills</Form.Label>
-      <InputGroup className="mb-1">
-        <Form.Control
-          placeholder="ex.Python, Javascript"
-          value={addTech}
-          onChange={(e) => setAddTech(e.target.value)}
-        />
-        <InputGroup.Append>
-          <Button
-            variant="outline-secondary"
-            onClick={() => {
-              if (addTech === "") {
-                return;
-              }
-              setTechnologies((prevState) => {
-                return [...prevState, addTech];
-              });
-              setAddTech("");
-            }}
-          >
-            Add
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
-      {error && (
-        <div className="ml-2" style={{ color: "#d9534f", fontSize: "14px" }}>
-          Must add at least 1 technology/skill
-        </div>
-      )}
-      <div>
-        {technologies.map((t, idx) => (
-          <Button
-            key={idx}
-            variant="outline-secondary"
-            className="mr-2 mt-2"
-            onClick={() => {
-              setTechnologies((prevState) => {
-                return prevState.filter((tech) => tech !== t);
-              });
-            }}
-          >
-            {t}{" "}
-            <Badge
-              variant="light"
-              style={{
-                fontWeight: "bold",
-                fontSize: "15px",
-                backgroundColor: "white",
-              }}
-            >
-              X
-            </Badge>
-          </Button>
-        ))}
-      </div>
       <Button
         className="my-3"
         style={{ backgroundColor: "#97c9c8", borderColor: "#97c9c8" }}
@@ -221,20 +143,7 @@ const SearchForm = () => {
       >
         Find Jobs
       </Button>
-      <Modal
-        show={visible}
-        onHide={() => setVisible(false)}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <Modal.Body>
-          <div className="justify-content-center p-5">
-            <Spinner animation="grow" className="mr-5" />
-            This might take a while...
-          </div>
-        </Modal.Body>
-      </Modal>
+      <LoadingModal visible={visible} setVisible={setVisible} />
     </Form>
   );
 };

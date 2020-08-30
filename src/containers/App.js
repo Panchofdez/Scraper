@@ -1,8 +1,7 @@
 import React from "react";
-import Header from "../components/Navbar";
+import Header from "../components/Header";
 import Home from "./Home";
-import JobResults from "../components/JobResults";
-import SearchHistory from "./SearchHistory";
+import JobResults from "./JobResults";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -37,11 +36,6 @@ function App() {
           />
           <Route
             exact
-            path="/history"
-            render={(props) => <SearchHistory {...props} />}
-          />
-          <Route
-            exact
             path="/signup"
             render={(props) => (
               <AuthForm type="signup" btnMessage="Sign Up" {...props} />
@@ -54,9 +48,7 @@ function App() {
               <AuthForm type="login" btnMessage="Login" {...props} />
             )}
           />
-          <Route path="/">
-            <Home />
-          </Route>
+          <Route path="/" render={(props) => <Home {...props} />} />
         </Switch>
       </Router>
     </Provider>

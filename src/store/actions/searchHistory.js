@@ -18,3 +18,14 @@ export const fetchSearchHistory = () => {
     }
   };
 };
+
+export const deleteSearchQuery = (id) => {
+  return async () => {
+    try {
+      const response = await api.delete(`/queries/${id}`);
+    } catch (err) {
+      console.log(err.response.data.error);
+      throw new Error(err);
+    }
+  };
+};

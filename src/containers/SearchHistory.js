@@ -1,51 +1,46 @@
 import React, { useEffect } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchHistory } from "../store/actions/searchHistory";
-import { fetchJobs } from "../store/actions/jobs";
+import { Row, Col, Card } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 
-const SearchHistory = ({ history }) => {
+const SearchHistory = ({ searchHistory, history, fetchJobs }) => {
   const dispatch = useDispatch();
-  const searchHistory = useSelector((state) => state.searchHistory);
-  useEffect(() => {
-    dispatch(fetchSearchHistory());
-  }, []);
   return (
-    <Container>
-      <Row>
-        {searchHistory.map((query) => (
-          <Col md={4}>
-            <Card
-              style={{ width: "100%" }}
-              onClick={async () => {
-                try {
-                  console.log(query.id);
-                  await dispatch(fetchJobs(query.id));
-                  history.push({
-                    pathname: "/jobs",
-                    state: { query_id: query.id },
-                  });
-                } catch (err) {
-                  return;
-                }
-              }}
-            >
-              <Card.Body>
-                <Card.Title>
-                  {query.job_type} - {query.site}
-                </Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  {query.date}
-                </Card.Subtitle>
-                <Card.Text>
-                  {query.city}, {query.province}, {query.country}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <Row>
+      {searchHistory.map((query) => (
+        <Col xs={10} md={4}>
+          <Card
+            className="mb-3 elevated"
+            style={{ width: "100%", borderRadius: 20 }}
+            onClick={async () => {
+              try {
+                console.log("clicked");
+                await dispatch(fetchJobs(query.id));
+                console.log(history);
+                history.push({
+                  pathname: "/jobs",
+                  state: { query },
+                });
+              } catch (err) {
+                return;
+              }
+            }}
+          >
+            <Card.Body>
+              <Card.Title>{query.job_type}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                {query.site}
+              </Card.Subtitle>
+              <Card.Text className="mb-1">
+                {query.city}, {query.province}, {query.country}
+              </Card.Text>
+              <Card.Text>
+                {query.date.split(" ").slice(0, 4).join(" ")}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
   );
 };
 

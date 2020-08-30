@@ -1,10 +1,13 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { signout } from "../store/actions/auth";
 
-const Header = () => {
+const Header = ({ history }) => {
+  const dispatch = useDispatch();
   const userToken = useSelector((state) => state.auth.token);
+  console.log(userToken);
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
@@ -13,11 +16,16 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/history">History</Nav.Link>
           </Nav>
           {userToken ? (
             <Nav>
-              <Nav.Link href="/" onClick={() => signout()}>
+              <Nav.Link
+                onClick={() => {
+                  dispatch(signout());
+                  history.push("/");
+                  window.location.reload();
+                }}
+              >
                 Signout
               </Nav.Link>
             </Nav>
@@ -37,4 +45,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
