@@ -7,7 +7,6 @@ import { signout } from "../store/actions/auth";
 const Header = ({ history }) => {
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.auth.token);
-  console.log(userToken);
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
       <Container>
@@ -16,6 +15,7 @@ const Header = ({ history }) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/favorites">Favorites</Nav.Link>
           </Nav>
           {userToken ? (
             <Nav>

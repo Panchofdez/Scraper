@@ -20,10 +20,12 @@ import {
   updateSearchQuery,
 } from "../store/actions/jobs";
 import { deleteSearchQuery } from "../store/actions/searchHistory";
+import { saveJob } from "../store/actions/favorites";
 import AddTechModal from "../components/AddTechModal";
 import Chart from "../components/Chart";
 import LoadingModal from "../components/LoadingModal";
 import JobResultsList from "../components/JobResultsList";
+import { addToast } from "../store/actions/toasts";
 
 const JobResults = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -55,11 +57,31 @@ const JobResults = ({ location, history }) => {
 
   const addTechnologies = () => {
     if (Object.keys(query).length === 0) {
+      dispatch(
+        addToast({
+          type: "Error",
+          message: "Must be signed in to access this feature",
+        })
+      );
+      setModalShow(false);
       return;
     }
     console.log(technologies);
     dispatch(analyseJobs(query.id, technologies));
     setModalShow(false);
+  };
+
+  const saveJobs = (jobData) => {
+    if (Object.keys(query).length === 0) {
+      dispatch(
+        addToast({
+          type: "Error",
+          message: "Must be signed in to access this feature",
+        })
+      );
+      return;
+    }
+    dispatch(saveJob(jobData));
   };
 
   const filterJobs = (jobs) => {
@@ -150,7 +172,9 @@ const JobResults = ({ location, history }) => {
                     md={9}
                     className="d-flex flex-row justify-content-between"
                   >
-                    <h5 className="mr-3">{locationState.query.job_type}</h5>
+                    <h5 className="mr-3">
+                      {locationState.query.job_type || locationState.query.type}
+                    </h5>
                     <p className="mr-3 mb-1">{locationState.query.site}</p>
                     <p className="mr-3">
                       {locationState.query.city}, {locationState.query.province}{" "}
@@ -183,7 +207,7 @@ const JobResults = ({ location, history }) => {
             <JobResultsList
               filteredJobs={filteredJobs}
               setSearch={setSearch}
-              search={search}
+              saveJobs={saveJobs}
             />
           </Col>
           <Col md={4}></Col>

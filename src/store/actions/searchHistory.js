@@ -1,4 +1,5 @@
 import { api } from "../../services/api";
+import { addToast } from "./toasts";
 
 export const setSearchHistory = (data) => {
   return {
@@ -11,20 +12,21 @@ export const fetchSearchHistory = () => {
   return async (dispatch) => {
     try {
       const response = await api.get("/queries");
+      console.log(response);
       dispatch(setSearchHistory(response.data));
     } catch (err) {
-      console.log(err.response.data.error);
-      throw new Error(err);
+      dispatch(addToast(err.response.data));
     }
   };
 };
 
 export const deleteSearchQuery = (id) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       const response = await api.delete(`/queries/${id}`);
+      dispatch(addToast(response.data));
     } catch (err) {
-      console.log(err.response.data.error);
+      dispatch(addToast(err.response.data));
       throw new Error(err);
     }
   };

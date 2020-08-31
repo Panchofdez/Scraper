@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
@@ -9,7 +9,7 @@ const SearchHistory = ({ searchHistory, history, fetchJobs }) => {
       {searchHistory.map((query) => (
         <Col xs={10} md={4}>
           <Card
-            className="mb-3 elevated"
+            className="mb-3 elevated queryCard"
             style={{ width: "100%", borderRadius: 20 }}
             onClick={async () => {
               try {

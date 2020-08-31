@@ -1,4 +1,5 @@
 import { api } from "../../services/api";
+import { addToast } from "./toasts";
 
 const loadJobs = (jobs, query) => {
   return {
@@ -48,7 +49,7 @@ export const scrapeJobs = (data) => {
       dispatch(loadAnalysis(jobs, counter, query));
       return query;
     } catch (err) {
-      console.log(err);
+      dispatch(addToast(err.response.data));
       throw Error(err);
     }
   };
@@ -63,7 +64,7 @@ export const fetchJobs = (id) => {
       const { jobs, query } = response.data;
       dispatch(loadJobs(jobs, query));
     } catch (err) {
-      console.log(err.response.data.error);
+      dispatch(addToast(err.response.data));
       throw new Error(err);
     }
   };
@@ -78,7 +79,7 @@ export const analyseJobs = (id, technologies) => {
       const { counter, jobs, query } = response.data;
       dispatch(loadAnalysis(jobs, counter, query));
     } catch (err) {
-      console.log(err.response.data.error);
+      dispatch(addToast(err.response.data));
       throw new Error(err);
     }
   };
@@ -92,7 +93,7 @@ export const updateSearchQuery = (id, technologies) => {
       dispatch(loadAnalysis(jobs, counter, query));
       return query;
     } catch (err) {
-      console.log(err.response.data.error);
+      dispatch(addToast(err.response.data));
       throw new Error(err);
     }
   };

@@ -1,15 +1,12 @@
 import React from "react";
-import Header from "../components/Header";
-import Home from "./Home";
-import JobResults from "./JobResults";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import configureStore from "../store";
 import { Provider } from "react-redux";
-import AuthForm from "./AuthForm";
 import { setTokenHeader } from "../services/api";
 import { setCurrentUser } from "../store/actions/auth";
+import Main from "./Main";
 
 const store = configureStore();
 
@@ -27,29 +24,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Header />
-        <Switch>
-          <Route
-            exact
-            path="/jobs"
-            render={(props) => <JobResults {...props} />}
-          />
-          <Route
-            exact
-            path="/signup"
-            render={(props) => (
-              <AuthForm type="signup" btnMessage="Sign Up" {...props} />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={(props) => (
-              <AuthForm type="login" btnMessage="Login" {...props} />
-            )}
-          />
-          <Route path="/" render={(props) => <Home {...props} />} />
-        </Switch>
+        <Main />
       </Router>
     </Provider>
   );

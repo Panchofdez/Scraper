@@ -9,9 +9,10 @@ import {
   Badge,
   Row,
   Col,
+  Form,
 } from "react-bootstrap";
 
-const JobResultsList = ({ filteredJobs, setSearch, search }) => {
+const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <Card style={{ borderRadius: 20 }}>
@@ -56,7 +57,7 @@ const JobResultsList = ({ filteredJobs, setSearch, search }) => {
         {filteredJobs.map((job, index) => (
           <ListGroup.Item key={index} action href={job.link} target="_blank">
             <Row>
-              <Col md={6}>
+              <Col md={5}>
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">{job.title}</h5>
                 </div>
@@ -68,7 +69,7 @@ const JobResultsList = ({ filteredJobs, setSearch, search }) => {
                   )}
                 </div>
               </Col>
-              <Col md={6}>
+              <Col md={5}>
                 <div>
                   {job.technologies &&
                     Object.keys(job.technologies).map((t, idx) => (
@@ -84,6 +85,22 @@ const JobResultsList = ({ filteredJobs, setSearch, search }) => {
                       </Badge>
                     ))}
                 </div>
+              </Col>
+              <Col md={2}>
+                <Form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    saveJobs(job);
+                  }}
+                >
+                  <Button
+                    className="btn btn-sm float-right"
+                    variant="outline-secondary"
+                    type="submit"
+                  >
+                    Save Job
+                  </Button>
+                </Form>
               </Col>
             </Row>
           </ListGroup.Item>

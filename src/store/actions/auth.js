@@ -1,5 +1,5 @@
 import { api, setTokenHeader } from "../../services/api";
-
+import { addToast } from "./toasts";
 export const setCurrentUser = (token) => {
   return {
     type: "SET_CURRENT_USER",
@@ -10,14 +10,16 @@ export const setCurrentUser = (token) => {
 export const authenticateUser = (type, data) => {
   return async (dispatch) => {
     try {
+      console.log(type);
       const response = await api.post(`/${type}`, data);
       const { token } = response.data;
+      console.log(token);
       localStorage.setItem("token", token);
       setTokenHeader(token);
-      console.log(token);
       dispatch(setCurrentUser(token));
     } catch (err) {
-      console.log(err.response.data.error);
+      console.log(err);
+      dispatch(addToast(err.response.data));
       throw new Error(err);
     }
   };
@@ -25,9 +27,12 @@ export const authenticateUser = (type, data) => {
 
 export const signout = () => {
   return (dispatch) => {
-    console.log("arrived");
-    localStorage.clear();
-    setTokenHeader(false);
-    dispatch(setCurrentUser({}));
+    try {
+      localStorage.clear();
+      setTokenHeader(false);
+      dispatch(setCurrentUser({}));
+    } catch (err) {
+      dispatch(addToast(err.response.data));
+    }
   };
 };
