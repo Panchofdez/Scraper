@@ -15,7 +15,7 @@ import {
 const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
-    <Card style={{ borderRadius: 20 }}>
+    <Card style={{ borderRadius: 20 }} className="elevated">
       <div className="d-flex justify-content-between p-3">
         <h6>{filteredJobs.length} job results</h6>
         <ButtonToolbar className="mb-3">
@@ -23,6 +23,7 @@ const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
             <FormControl
               type="text"
               style={{ width: "500px" }}
+              className="elevated"
               placeholder="Search by job title, company name or preferred technologies"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

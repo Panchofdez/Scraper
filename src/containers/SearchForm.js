@@ -64,9 +64,9 @@ const SearchForm = () => {
           onBlur={formik.handleBlur}
           value={formik.values.site}
           isInvalid={formik.touched && !!formik.errors.site}
+          className="elevated"
         >
           <option>Indeed</option>
-          <option>GlassDoor</option>
         </Form.Control>
         <Form.Control.Feedback type="invalid">
           Please enter a job site
@@ -82,6 +82,7 @@ const SearchForm = () => {
           onBlur={formik.handleBlur}
           value={formik.values.type}
           isInvalid={formik.touched && formik.errors.type}
+          className="elevated"
         />
         <Form.Control.Feedback type="invalid">
           {formik.errors.type}
@@ -98,6 +99,7 @@ const SearchForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.country}
             isInvalid={formik.touched && formik.errors.country}
+            className="elevated"
           >
             <option>Canada</option>
             <option>United States</option>
@@ -114,6 +116,7 @@ const SearchForm = () => {
             onBlur={formik.handleBlur}
             value={formik.values.city}
             isInvalid={formik.touched && formik.errors.city}
+            className="elevated"
           />
           <Form.Control.Feedback type="invalid">
             {formik.errors.city}
@@ -129,6 +132,7 @@ const SearchForm = () => {
             value={formik.values.province}
             isInvalid={formik.touched && formik.errors.province}
             placeholder="ex. ON, BC"
+            className="elevated"
           />
           <Form.Control.Feedback type="invalid">
             {formik.errors.province}
@@ -136,7 +140,7 @@ const SearchForm = () => {
         </Form.Group>
       </Form.Row>
       <Button
-        className="my-3"
+        className="my-3 elevated"
         style={{ backgroundColor: "#97c9c8", borderColor: "#97c9c8" }}
         type="submit"
         block

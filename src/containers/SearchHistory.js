@@ -5,9 +5,9 @@ import { useDispatch } from "react-redux";
 const SearchHistory = ({ searchHistory, history, fetchJobs }) => {
   const dispatch = useDispatch();
   return (
-    <Row>
+    <Row className="d-flex justify-content-center justify-content-md-start ">
       {searchHistory.map((query) => (
-        <Col xs={10} md={4}>
+        <Col xs={10} md={4} className="h-100">
           <Card
             className="mb-3 elevated queryCard"
             style={{ width: "100%", borderRadius: 20 }}

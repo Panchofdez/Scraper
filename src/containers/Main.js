@@ -66,14 +66,24 @@ const Main = () => {
           exact
           path="/signup"
           render={(props) => (
-            <AuthForm type="signup" btnMessage="Sign Up" {...props} />
+            <AuthForm
+              type="signup"
+              btnMessage="Sign Up"
+              headerMessage="Let's Get Started"
+              {...props}
+            />
           )}
         />
         <Route
           exact
           path="/login"
           render={(props) => (
-            <AuthForm type="login" btnMessage="Login" {...props} />
+            <AuthForm
+              type="login"
+              btnMessage="Login"
+              headerMessage="Welcome Back!"
+              {...props}
+            />
           )}
         />
         <Route path="/" render={(props) => <Home {...props} />} />

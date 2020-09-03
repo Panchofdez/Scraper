@@ -8,9 +8,9 @@ const Header = ({ history }) => {
   const dispatch = useDispatch();
   const userToken = useSelector((state) => state.auth.token);
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar collapseOnSelect expand="lg" variant="light" bg="transparent">
       <Container>
-        <Navbar.Brand>Job Scraper</Navbar.Brand>
+        <Navbar.Brand style={{ color: "#97c9c8" }}>Scraper</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">

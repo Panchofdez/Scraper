@@ -19,6 +19,9 @@ if (localStorage.token) {
     store.dispatch(setCurrentUser(null));
   }
 }
+{
+  /* <a href='https://www.freepik.com/vectors/office'>Office vector created by stories - www.freepik.com</a> */
+}
 
 function App() {
   return (

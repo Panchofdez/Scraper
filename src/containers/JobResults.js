@@ -165,7 +165,7 @@ const JobResults = ({ location, history }) => {
           )}
 
           <Col md={12}>
-            <Card style={{ borderRadius: 20 }}>
+            <Card style={{ borderRadius: 20 }} className="elevated">
               <Card.Body>
                 <Row className="d-flex justify-content-between flex-1">
                   <Col
