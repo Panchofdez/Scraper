@@ -46,10 +46,10 @@ const Favorites = () => {
               {savedJobs.length > 0 &&
                 savedJobs.map((job) => {
                   return (
-                    <Col md={4}>
+                    <Col md={4} className="h-100">
                       <Card
-                        className="elevated mb-3 h-100 "
-                        style={{ borderRadius: 10 }}
+                        className="elevated mb-3"
+                        style={{ borderRadius: 10, minHeight: "180px" }}
                         href={job.link}
                       >
                         <Card.Body>

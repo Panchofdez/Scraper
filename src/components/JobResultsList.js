@@ -11,47 +11,14 @@ import {
   Col,
   Form,
 } from "react-bootstrap";
+import SearchBar from "./SearchBar";
 
 const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
-  const [searchTerm, setSearchTerm] = useState("");
   return (
     <Card style={{ borderRadius: 20 }} className="elevated">
       <div className="d-flex justify-content-between p-3">
         <h6>{filteredJobs.length} job results</h6>
-        <ButtonToolbar className="mb-3">
-          <InputGroup>
-            <FormControl
-              type="text"
-              style={{ width: "500px" }}
-              className="elevated"
-              placeholder="Search by job title, company name or preferred technologies"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <InputGroup.Append>
-              <Button
-                variant="outline-secondary"
-                onClick={() => {
-                  if (searchTerm === "") {
-                    return;
-                  }
-                  setSearch(searchTerm);
-                }}
-              >
-                Search
-              </Button>
-              <Button
-                variant="outline-secondary"
-                onClick={() => {
-                  setSearch("");
-                  setSearchTerm("");
-                }}
-              >
-                Reset
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </ButtonToolbar>
+        <SearchBar setSearch={setSearch} />
       </div>
 
       <ListGroup>

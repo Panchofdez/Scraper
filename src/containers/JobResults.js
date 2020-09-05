@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
-  ListGroup,
   Row,
   Col,
   Container,
-  Badge,
   Card,
   Spinner,
   Button,
   ButtonToolbar,
-  InputGroup,
-  FormControl,
-  Modal,
 } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -122,47 +117,7 @@ const JobResults = ({ location, history }) => {
     return (
       <Container className="mt-5">
         <Row>
-          {Object.keys(query).length > 0 && (
-            <Col md={12}>
-              <ButtonToolbar className="mb-3 float-right">
-                <Button
-                  variant="outline-secondary mr-3"
-                  onClick={async () => {
-                    try {
-                      setVisible(true);
-                      const new_query = await dispatch(
-                        updateSearchQuery(query.id, technologies)
-                      );
-                      console.log(new_query);
-                      setVisible(false);
-                      history.push({
-                        pathname: "/jobs",
-                        state: { query: new_query },
-                      });
-                    } catch (err) {
-                      setVisible(false);
-                      return;
-                    }
-                  }}
-                >
-                  Refresh Results
-                </Button>
-                <Button
-                  variant="outline-danger"
-                  onClick={() => {
-                    try {
-                      dispatch(deleteSearchQuery(query.id));
-                      history.push("/");
-                    } catch (err) {
-                      return;
-                    }
-                  }}
-                >
-                  Delete
-                </Button>
-              </ButtonToolbar>
-            </Col>
-          )}
+          {Object.keys(query).length > 0 && <Col md={12}></Col>}
 
           <Col md={12}>
             <Card style={{ borderRadius: 20 }} className="elevated">
@@ -191,6 +146,48 @@ const JobResults = ({ location, history }) => {
                   <Col md={3}>
                     <ButtonToolbar className="mb-3 float-right">
                       <Button
+                        variant="outline-secondary mr-3"
+                        onClick={async () => {
+                          try {
+                            setVisible(true);
+                            const new_query = await dispatch(
+                              updateSearchQuery(query.id, technologies)
+                            );
+                            console.log(new_query);
+                            setVisible(false);
+                            history.push({
+                              pathname: "/jobs",
+                              state: { query: new_query },
+                            });
+                          } catch (err) {
+                            setVisible(false);
+                            return;
+                          }
+                        }}
+                      >
+                        Refresh Results
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        onClick={async () => {
+                          try {
+                            await dispatch(deleteSearchQuery(query.id));
+                            history.push("/");
+                          } catch (err) {
+                            return;
+                          }
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </ButtonToolbar>
+                  </Col>
+                </Row>
+                <Chart chartData={chartData} />
+                <Row>
+                  <Col md={12}>
+                    <ButtonToolbar className="mb-3 float-right">
+                      <Button
                         variant="outline-secondary"
                         onClick={() => setModalShow(true)}
                       >
@@ -199,7 +196,6 @@ const JobResults = ({ location, history }) => {
                     </ButtonToolbar>
                   </Col>
                 </Row>
-                <Chart chartData={chartData} />
               </Card.Body>
             </Card>
           </Col>

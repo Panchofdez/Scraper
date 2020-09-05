@@ -65,7 +65,7 @@ const AuthForm = ({ type, btnMessage, history, headerMessage }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Button
-              className="my-3"
+              className="my-4"
               style={{ backgroundColor: "#97c9c8", borderColor: "#97c9c8" }}
               type="submit"
               block

@@ -18,8 +18,8 @@ const Home = (props) => {
     }
   }, []);
   return (
-    <>
-      <Container>
+    <Container fluid className="h-100 p-0 d-flex flex-column">
+      <Container className="mb-5">
         <Row
           className="mx-2  mb-3"
           style={{
@@ -53,13 +53,14 @@ const Home = (props) => {
             width: "100%",
             backgroundColor: "#f8f9fa",
           }}
-          className="py-5 mx-0"
+          className="py-5 mx-0 flex-grow-1"
         >
           <Container>
-            <h3 className="my-3 ml-5 ml-md-0" style={{ letterSpacing: 0.5 }}>
-              Search History
-            </h3>
-
+            {searchHistory.length > 0 && (
+              <h3 className="my-3 ml-5 ml-md-0" style={{ letterSpacing: 0.5 }}>
+                Search History
+              </h3>
+            )}
             <SearchHistory
               searchHistory={searchHistory}
               fetchJobs={fetchJobs}
@@ -68,7 +69,7 @@ const Home = (props) => {
           </Container>
         </Row>
       )}
-    </>
+    </Container>
   );
 };
 

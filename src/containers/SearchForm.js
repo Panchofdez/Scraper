@@ -63,7 +63,7 @@ const SearchForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.site}
-          isInvalid={formik.touched && !!formik.errors.site}
+          isInvalid={formik.touched.site && !!formik.errors.site}
           className="elevated"
         >
           <option>Indeed</option>
@@ -81,7 +81,7 @@ const SearchForm = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.type}
-          isInvalid={formik.touched && formik.errors.type}
+          isInvalid={formik.touched.type && formik.errors.type}
           className="elevated"
         />
         <Form.Control.Feedback type="invalid">
@@ -98,7 +98,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.country}
-            isInvalid={formik.touched && formik.errors.country}
+            isInvalid={formik.touched.country && formik.errors.country}
             className="elevated"
           >
             <option>Canada</option>
@@ -115,7 +115,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.city}
-            isInvalid={formik.touched && formik.errors.city}
+            isInvalid={formik.touched.city && formik.errors.city}
             className="elevated"
           />
           <Form.Control.Feedback type="invalid">
@@ -130,7 +130,7 @@ const SearchForm = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.province}
-            isInvalid={formik.touched && formik.errors.province}
+            isInvalid={formik.touched.province && formik.errors.province}
             placeholder="ex. ON, BC"
             className="elevated"
           />

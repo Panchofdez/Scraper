@@ -27,14 +27,9 @@ export const baseTechnologies = [
   "C++",
   "C#",
   "C",
-  "Go",
   "PHP",
-  "React",
-  "Angular",
-  "Vue",
   "AWS",
   "SQL",
-  "Docker",
 ];
 
 export const scrapeJobs = (data) => {
