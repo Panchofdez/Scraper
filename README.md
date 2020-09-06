@@ -8,5 +8,6 @@ The front-end application for my Scraper project which uses uses React, and Boot
 * Find out which technologies/skills are most in demand for the job position
 * Find out the technologies/skills that are being asked for in each job post
 * Easily sort the job posts based on your preferred stack of technologies or company name or job title
+* Sign up to be able to save your favorite jobs to your profile 
 
 [Scraper Website] (https://scraper-pf.herokuapp.com/)
