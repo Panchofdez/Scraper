@@ -1,4 +1,4 @@
-#Scraper 
+# Scraper 
 
 The front-end application for my Scraper project which uses uses React, and Bootstrap/React-Bootstrap frameworks
 
