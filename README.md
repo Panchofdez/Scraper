@@ -12,5 +12,5 @@ The front-end application for my Scraper project which uses uses React, and Boot
 
 [Scraper Website] (https://scraper-pf.herokuapp.com/)
 
+<img width="956" alt="JobScraperScreenshot (3)" src="https://user-images.githubusercontent.com/54787118/95002133-c6032a80-059e-11eb-9db5-a58dfc8cc5ae.png">
 <img width="956" alt="JobScraperScreenshot2 (2)" src="https://user-images.githubusercontent.com/54787118/95002117-99e7a980-059e-11eb-8d05-0b2f7033fb39.png">
-<img width="958" alt="JobScraperScreenshot (2)" src="https://user-images.githubusercontent.com/54787118/95002118-9d7b3080-059e-11eb-8001-7ddea6bd782d.png">
