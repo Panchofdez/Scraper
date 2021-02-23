@@ -2,6 +2,8 @@ import axios from "axios";
 
 const url = "https://scraper-backend-pf.herokuapp.com/";
 
+// const url = "localhost:5000/";
+
 export const api = axios.create({
   baseURL: url,
 });

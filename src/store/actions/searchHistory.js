@@ -12,7 +12,6 @@ export const fetchSearchHistory = () => {
   return async (dispatch) => {
     try {
       const response = await api.get("/queries");
-      console.log(response);
       dispatch(setSearchHistory(response.data));
     } catch (err) {
       dispatch(addToast(err.response.data));
