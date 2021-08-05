@@ -30,3 +30,14 @@ export const saveJob = (jobData) => {
     }
   };
 };
+
+export const deleteFavorite = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await api.delete(`/favorites/${id}`);
+      dispatch(addToast(response.data));
+    } catch (err) {
+      dispatch(addToast(err.response.data));
+    }
+  };
+};

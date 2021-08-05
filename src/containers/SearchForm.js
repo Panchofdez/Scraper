@@ -1,27 +1,33 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Form,
-  Button,
-  Col,
-  Badge,
-  InputGroup,
-  Spinner,
-  Modal,
-} from "react-bootstrap";
+import { Form, Button, Col, Badge, InputGroup, Spinner, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { scrapeJobs } from "../store/actions/jobs";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import LoadingModal from "../components/LoadingModal";
+import AddTechForm from "../components/AddTechForm";
 
 const SearchForm = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
+  const [technologies, setTechnologies] = useState([
+    "HTML",
+    "CSS",
+    "Python",
+    "Javascript",
+    "Java",
+    "C++",
+    "C#",
+    "C",
+    "PHP",
+    "AWS",
+    "SQL",
+  ]);
   const formik = useFormik({
     initialValues: {
-      site: "Indeed",
+      site: "Stack Overflow",
       type: "",
       city: "",
       province: "",
@@ -32,19 +38,25 @@ const SearchForm = () => {
       type: Yup.string().required("Job type is required"),
       country: Yup.string().required("Country is required"),
       city: Yup.string().required("City is required"),
-      province: Yup.string()
-        .required("Province is required")
-        .max(2, "Must be 2 characters in length"),
+      province: Yup.string().required("Province is required").max(2, "Must be 2 characters in length"),
     }),
     onSubmit: async (values) => {
       console.log(values);
+      console.log(technologies);
+      if (technologies.length === 0) {
+        return;
+      }
+      const data = {
+        ...values,
+        technologies,
+      };
       try {
         setVisible(true);
-        const new_query = await dispatch(scrapeJobs(values));
+        const new_query = await dispatch(scrapeJobs(data));
 
         history.push({
           pathname: "/jobs",
-          state: { query: { ...values, ...new_query } },
+          state: { query: { ...data, ...new_query } },
         });
       } catch (err) {
         console.log(err);
@@ -66,11 +78,9 @@ const SearchForm = () => {
           isInvalid={formik.touched.site && !!formik.errors.site}
           className="elevated"
         >
-          <option>Indeed</option>
+          <option>Stack Overflow</option>
         </Form.Control>
-        <Form.Control.Feedback type="invalid">
-          Please enter a job site
-        </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">Please enter a job site</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="formGridType">
@@ -84,9 +94,7 @@ const SearchForm = () => {
           isInvalid={formik.touched.type && formik.errors.type}
           className="elevated"
         />
-        <Form.Control.Feedback type="invalid">
-          {formik.errors.type}
-        </Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{formik.errors.type}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Row>
@@ -104,9 +112,7 @@ const SearchForm = () => {
             <option>Canada</option>
             <option>United States</option>
           </Form.Control>
-          <Form.Control.Feedback type="invalid">
-            {formik.errors.country}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formik.errors.country}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} controlId="formGridCity">
           <Form.Label>City</Form.Label>
@@ -118,9 +124,7 @@ const SearchForm = () => {
             isInvalid={formik.touched.city && formik.errors.city}
             className="elevated"
           />
-          <Form.Control.Feedback type="invalid">
-            {formik.errors.city}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formik.errors.city}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridProvince">
@@ -134,11 +138,10 @@ const SearchForm = () => {
             placeholder="ex. ON, BC"
             className="elevated"
           />
-          <Form.Control.Feedback type="invalid">
-            {formik.errors.province}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formik.errors.province}</Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
+      <AddTechForm technologies={technologies} setTechnologies={setTechnologies} />
       <Button
         className="my-3 elevated"
         style={{ backgroundColor: "#97c9c8", borderColor: "#97c9c8" }}

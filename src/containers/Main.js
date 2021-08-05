@@ -5,7 +5,7 @@ import { Toast } from "react-bootstrap";
 import Header from "../components/Header";
 import Home from "./Home";
 import JobResults from "./JobResults";
-import Favorites from "./Favorites";
+import Profile from "./Profile";
 import AuthForm from "./AuthForm";
 
 const Main = () => {
@@ -52,39 +52,19 @@ const Main = () => {
       )}
 
       <Switch>
-        <Route
-          exact
-          path="/jobs"
-          render={(props) => <JobResults {...props} />}
-        />
-        <Route
-          exact
-          path="/favorites"
-          render={(props) => <Favorites {...props} />}
-        />
+        <Route exact path="/jobs" render={(props) => <JobResults {...props} />} />
+        <Route exact path="/profile" render={(props) => <Profile {...props} />} />
         <Route
           exact
           path="/signup"
           render={(props) => (
-            <AuthForm
-              type="signup"
-              btnMessage="Sign Up"
-              headerMessage="Let's Get Started"
-              {...props}
-            />
+            <AuthForm type="signup" btnMessage="Sign Up" headerMessage="Create An Account" {...props} />
           )}
         />
         <Route
           exact
           path="/login"
-          render={(props) => (
-            <AuthForm
-              type="login"
-              btnMessage="Login"
-              headerMessage="Welcome Back!"
-              {...props}
-            />
-          )}
+          render={(props) => <AuthForm type="login" btnMessage="Login" headerMessage="Welcome Back!" {...props} />}
         />
         <Route path="/" render={(props) => <Home {...props} />} />
       </Switch>

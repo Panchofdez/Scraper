@@ -18,28 +18,12 @@ const loadAnalysis = (jobs, counter, query) => {
   };
 };
 
-export const baseTechnologies = [
-  "HTML",
-  "CSS",
-  "Python",
-  "Javascript",
-  "Java",
-  "C++",
-  "C#",
-  "C",
-  "PHP",
-  "AWS",
-  "SQL",
-];
+export const baseTechnologies = ["HTML", "CSS", "Python", "Javascript", "Java", "C++", "C#", "C", "PHP", "AWS", "SQL"];
 
 export const scrapeJobs = (data) => {
   return async (dispatch) => {
     try {
-      const formData = {
-        ...data,
-        technologies: baseTechnologies,
-      };
-      const response = await api.post("/scrape", formData);
+      const response = await api.post("/scrape", data);
       const { jobs, counter, query } = response.data;
       dispatch(loadAnalysis(jobs, counter, query));
       return query;
@@ -56,8 +40,8 @@ export const fetchJobs = (id) => {
       console.log("fetched");
       const response = await api.get(`/queries/${id}`);
       console.log(response);
-      const { jobs, query } = response.data;
-      dispatch(loadJobs(jobs, query));
+      const { jobs, query, counter } = response.data;
+      dispatch(loadAnalysis(jobs, counter, query));
     } catch (err) {
       dispatch(addToast(err.response.data));
       throw new Error(err);

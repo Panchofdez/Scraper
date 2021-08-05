@@ -16,10 +16,14 @@ import SearchBar from "./SearchBar";
 const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
   return (
     <Card style={{ borderRadius: 20 }} className="elevated">
-      <div className="d-flex justify-content-between p-3">
-        <h6>{filteredJobs.length} job results</h6>
-        <SearchBar setSearch={setSearch} />
-      </div>
+      <Row className="d-flex justify-content-between p-3">
+        <Col xs={12} md={6} lg={4}>
+          <h6>{filteredJobs.length} job results</h6>
+        </Col>
+        <Col xs={12} md={6} lg={8}>
+          <SearchBar setSearch={setSearch} />
+        </Col>
+      </Row>
 
       <ListGroup>
         {filteredJobs.map((job, index) => (
@@ -32,9 +36,7 @@ const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
                 <h6 className="mb-1">{job.company}</h6>
                 <div className="d-flex h-100">
                   {job.salary && <span className="mr-5">{job.salary}</span>}
-                  {job.rating && (
-                    <span>{job.rating ? job.rating + " stars" : ""}</span>
-                  )}
+                  {job.rating && <span>{job.rating ? job.rating + " stars" : ""}</span>}
                 </div>
               </Col>
               <Col md={5}>
@@ -61,11 +63,7 @@ const JobResultsList = ({ filteredJobs, setSearch, saveJobs }) => {
                     saveJobs(job);
                   }}
                 >
-                  <Button
-                    className="btn btn-sm float-right"
-                    variant="outline-secondary"
-                    type="submit"
-                  >
+                  <Button className="btn btn-sm float-right" variant="outline-secondary" type="submit">
                     Save Job
                   </Button>
                 </Form>

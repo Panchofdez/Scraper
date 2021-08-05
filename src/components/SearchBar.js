@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import {
-  ButtonToolbar,
-  InputGroup,
-  Button,
-  FormControl,
-} from "react-bootstrap";
+import { ButtonToolbar, InputGroup, Button, FormControl } from "react-bootstrap";
 
 const SearchBar = ({ setSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
-    <ButtonToolbar className="mb-3">
-      <InputGroup>
+    <ButtonToolbar className="mb-3 w-100">
+      <InputGroup className="w-100">
         <FormControl
           type="text"
-          style={{ width: "500px" }}
           className="elevated"
+          style={{ flex: 1 }}
           placeholder="Search by job title, company name or preferred technologies"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
